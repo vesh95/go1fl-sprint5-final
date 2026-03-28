@@ -11,3 +11,4 @@ func (ds *DaySteps) Parse(datastring string) (err error) {
 func (ds DaySteps) ActionInfo() (string, error) {
 	// TODO: реализовать функцию
 }
+
