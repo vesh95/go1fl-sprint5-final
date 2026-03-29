@@ -15,10 +15,10 @@ const (
 )
 
 var (
-	ErrInvalidStepsCount = errors.New("invalid steps count")
-	ErrInvalidDuration   = errors.New("invalid duration")
-	ErrInvalidHeight     = errors.New("invalid height")
-	ErrInvalidWeight     = errors.New("invalid weight")
+	errInvalidStepsCount = errors.New("invalid steps count")
+	errInvalidDuration   = errors.New("invalid duration")
+	errInvalidHeight     = errors.New("invalid height")
+	errInvalidWeight     = errors.New("invalid weight")
 )
 
 func WalkingSpentCalories(steps int, weight, height float64, duration time.Duration) (float64, error) {
@@ -32,16 +32,16 @@ func WalkingSpentCalories(steps int, weight, height float64, duration time.Durat
 
 func RunningSpentCalories(steps int, weight, height float64, duration time.Duration) (float64, error) {
 	if steps <= 0 {
-		return 0, fmt.Errorf("running spent calories: %w", ErrInvalidStepsCount)
+		return 0, fmt.Errorf("running spent calories: %w", errInvalidStepsCount)
 	}
 	if weight <= 0 {
-		return 0, fmt.Errorf("running spent calories: %w", ErrInvalidHeight)
+		return 0, fmt.Errorf("running spent calories: %w", errInvalidWeight)
 	}
 	if height <= 0 {
-		return 0, fmt.Errorf("running spent calories: %w", ErrInvalidWeight)
+		return 0, fmt.Errorf("running spent calories: %w", errInvalidHeight)
 	}
 	if duration <= 0 {
-		return 0, fmt.Errorf("running spent calories: %w", ErrInvalidDuration)
+		return 0, fmt.Errorf("running spent calories: %w", errInvalidDuration)
 	}
 	meanSpeed := MeanSpeed(steps, height, duration)
 	return (weight * meanSpeed * duration.Minutes()) / minInH, nil

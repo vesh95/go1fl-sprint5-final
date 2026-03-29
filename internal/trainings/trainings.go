@@ -17,9 +17,9 @@ const (
 )
 
 var (
-	ErrInvalidParam      = errors.New("invalid params string")
-	ErrInvalidStepsCount = errors.New("invalid steps count")
-	ErrInvalidDuration   = errors.New("invalid duration")
+	errInvalidParam      = errors.New("invalid params string")
+	errInvalidStepsCount = errors.New("invalid steps count")
+	errInvalidDuration   = errors.New("invalid duration")
 )
 
 type Training struct {
@@ -32,14 +32,14 @@ type Training struct {
 func (t *Training) Parse(datastring string) (err error) {
 	params := strings.Split(datastring, ",")
 	if len(params) != 3 {
-		return fmt.Errorf("parse training error: %w", ErrInvalidParam)
+		return fmt.Errorf("parse training error: %w", errInvalidParam)
 	}
 	t.Steps, err = strconv.Atoi(params[0])
 	if err != nil {
 		return fmt.Errorf("parse training error: %w", err)
 	}
 	if t.Steps <= 0 {
-		return fmt.Errorf("parse training error: %w", ErrInvalidStepsCount)
+		return fmt.Errorf("parse training error: %w", errInvalidStepsCount)
 	}
 	t.TrainingType = params[1]
 	t.Duration, err = time.ParseDuration(params[2])
@@ -47,7 +47,7 @@ func (t *Training) Parse(datastring string) (err error) {
 		return fmt.Errorf("parse training error: %w", err)
 	}
 	if t.Duration <= 0 {
-		return fmt.Errorf("parse training error: %w", ErrInvalidDuration)
+		return fmt.Errorf("parse training error: %w", errInvalidDuration)
 	}
 
 	return nil
